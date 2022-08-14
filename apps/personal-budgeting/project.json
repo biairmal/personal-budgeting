@@ -1,0 +1,95 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/personal-budgeting/src",
+  "prefix": "personal-budgeting",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/personal-budgeting",
+        "index": "apps/personal-budgeting/src/index.html",
+        "main": "apps/personal-budgeting/src/main.ts",
+        "polyfills": "apps/personal-budgeting/src/polyfills.ts",
+        "tsConfig": "apps/personal-budgeting/tsconfig.app.json",
+        "assets": [
+          "apps/personal-budgeting/src/favicon.ico",
+          "apps/personal-budgeting/src/assets"
+        ],
+        "styles": ["apps/personal-budgeting/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/personal-budgeting/src/environments/environment.ts",
+              "with": "apps/personal-budgeting/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "personal-budgeting:build:production"
+        },
+        "development": {
+          "browserTarget": "personal-budgeting:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/personal-budgeting/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "personal-budgeting:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/personal-budgeting/**/*.ts",
+          "apps/personal-budgeting/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/personal-budgeting"],
+      "options": {
+        "jestConfig": "apps/personal-budgeting/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
