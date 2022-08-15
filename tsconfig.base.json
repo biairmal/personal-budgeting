@@ -15,7 +15,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@personal-budgeting/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@personal-budgeting/api-core": ["libs/api/core/src/index.ts"],
+      "@personal-budgeting/api-interfaces": [
+        "libs/api-interfaces/src/index.ts"
+      ],
+      "@personal-budgeting/api-prisma": ["libs/api/prisma/src/index.ts"],
+      "@personal-budgeting/api-transactions": [
+        "libs/api/transactions/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
