@@ -2,45 +2,52 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const data = [
-  {
-    amount: 15000,
-    type: 'expense',
-    category: 'transportation',
-    note: 'Gojek',
-    description: 'Test',
-    date: new Date(),
-},
-{
-    amount: 30000,
-    type: 'expense',
-    category: 'transportation',
-    note: 'Grab Car',
-    description: 'Test',
-    date: new Date(),
-},
-{
-    amount: 25000,
-    type: 'expense',
-    category: 'food',
-    note: 'Gofood',
-    description: 'Test',
-    date: new Date(),
-  },
-];
-
 async function main() {
-  for (let i of data) {
-    await prisma.transaction.create({ data: i });
-  }
+  await prisma.user.create({
+    data: {
+      email: 'test@gmail.com',
+      password: 'password',
+      firstName: 'User',
+      transactions: {
+        create: [
+
+          {
+            amount: 15000,
+            type: 'expense',
+            category: 'transportation',
+            note: 'Gojek',
+            description: 'Test',
+            date: new Date(),
+          },
+          {
+            amount: 30000,
+            type: 'expense',
+            category: 'transportation',
+            note: 'Grab Car',
+            description: 'Test',
+            date: new Date(),
+          },
+          {
+            amount: 25000,
+            type: 'expense',
+            category: 'food',
+            note: 'Gofood',
+            description: 'Test',
+            date: new Date(),
+          },
+        ]
+      }
+    }
+  })
 }
 
 main()
-  .catch((err) => {
-    console.log(err);
-    process.exit(1);
+  .then(async () => {
+    await prisma.$disconnect();
+    console.log('Successfully seeded database!');
   })
-  .finally(() => {
-    console.log('Successfully seed database!');
-    prisma.$disconnect();
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
   });
